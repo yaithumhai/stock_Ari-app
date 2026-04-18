@@ -1,114 +1,97 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!doctype html>
+
+<html lang="th">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.7">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.3px Times; color: #5a5a5a; -webkit-text-stroke: #5a5a5a; background-color: #f4f5f7}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.3px Times; color: #5a5a5a; -webkit-text-stroke: #5a5a5a; background-color: #f4f5f7; min-height: 16.0px}
-    span.s1 {font-kerning: none}
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stock App</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!doctype html&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;html lang="th"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;Stock App&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;body class="bg-gray-100 p-6 font-sans"&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;h1 class="text-2xl font-bold mb-4"&gt;📦 ระบบสต๊อก (พร้อมใช้จริง)&lt;/h1&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- ADD PRODUCT --&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="bg-white p-4 rounded-xl shadow mb-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="productName" placeholder="ชื่อสินค้า"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>class="border p-2 rounded w-full mb-2" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="addProduct()"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>class="bg-orange-500 text-white px-4 py-2 rounded"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>➕ เพิ่มสินค้า</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- PRODUCT LIST --&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="bg-white p-4 rounded-xl shadow mb-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h2 class="font-semibold mb-2"&gt;📋 รายการสินค้า&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;ul id="productList"&gt;&lt;/ul&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- SALES --&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="bg-white p-4 rounded-xl shadow"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;input id="cash" type="number" placeholder="เงินสด"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>class="border p-2 rounded w-full mb-2" /&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="saveSales()"</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>class="bg-green-600 text-white px-4 py-2 rounded"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>💰 บันทึกยอดขาย</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;script&gt;</span></p>
-<p class="p1"><span class="s1">const API_URL = "https://script.google.com/macros/s/AKfycbyMVsF0O-AURKWTKjbDw1CcmTIRKcVqRwVf0XE8k-3nYjw9XWJ3yNB5XVJ-pGBDsPUQ/exec";</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">let products = JSON.parse(localStorage.getItem("products") || "[]");</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function render() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const list = document.getElementById("productList");</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>list.innerHTML = "";</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>products.forEach((p,i)=&gt;{</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>list.innerHTML += `</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;li class="flex justify-between border-b py-1"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>${p}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;button onclick="remove(${i})" class="text-red-500"&gt;ลบ&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/li&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>`;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function addProduct() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const name = document.getElementById("productName").value;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>if(!name) return alert("กรอกชื่อสินค้า");</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>products.push(name);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>localStorage.setItem("products", JSON.stringify(products));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>render();</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>fetch(API_URL, {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>method:"POST",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body: JSON.stringify({action:"addProduct", name})</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function remove(i) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>products.splice(i,1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>localStorage.setItem("products", JSON.stringify(products));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>render();</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">function saveSales() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>const cash = document.getElementById("cash").value;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>fetch(API_URL, {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>method:"POST",</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body: JSON.stringify({action:"sales", cash})</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>});</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>alert("บันทึกแล้ว");</span></p>
-<p class="p1"><span class="s1">}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">render();</span></p>
-<p class="p1"><span class="s1">&lt;/script&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+
+<body class="bg-gray-100 p-6 font-sans">
+
+  <h1 class="text-2xl font-bold mb-4">📦 ระบบสต๊อก (พร้อมใช้จริง)</h1>
+
+  <!-- ADD PRODUCT -->
+
+  <div class="bg-white p-4 rounded-xl shadow mb-4">
+    <input id="productName" placeholder="ชื่อสินค้า"
+      class="border p-2 rounded w-full mb-2" />
+    <button onclick="addProduct()"
+      class="bg-orange-500 text-white px-4 py-2 rounded">
+      ➕ เพิ่มสินค้า
+    </button>
+  </div>
+
+  <!-- PRODUCT LIST -->
+
+  <div class="bg-white p-4 rounded-xl shadow mb-4">
+    <h2 class="font-semibold mb-2">📋 รายการสินค้า</h2>
+    <ul id="productList"></ul>
+  </div>
+
+  <!-- SALES -->
+
+  <div class="bg-white p-4 rounded-xl shadow">
+    <input id="cash" type="number" placeholder="เงินสด"
+      class="border p-2 rounded w-full mb-2" />
+    <button onclick="saveSales()"
+      class="bg-green-600 text-white px-4 py-2 rounded">
+      💰 บันทึกยอดขาย
+    </button>
+  </div>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyMVsF0O-AURKWTKjbDw1CcmTIRKcVqRwVf0XE8k-3nYjw9XWJ3yNB5XVJ-pGBDsPUQ/exec";
+
+let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+function render() {
+  const list = document.getElementById("productList");
+  list.innerHTML = "";
+  products.forEach((p,i)=>{
+    list.innerHTML += `
+      <li class="flex justify-between border-b py-1">
+        ${p}
+        <button onclick="remove(${i})" class="text-red-500">ลบ</button>
+      </li>
+    `;
+  });
+}
+
+function addProduct() {
+  const name = document.getElementById("productName").value;
+  if(!name) return alert("กรอกชื่อสินค้า");
+
+  products.push(name);
+  localStorage.setItem("products", JSON.stringify(products));
+  render();
+
+  fetch(API_URL, {
+    method:"POST",
+    body: JSON.stringify({action:"addProduct", name})
+  });
+}
+
+function remove(i) {
+  products.splice(i,1);
+  localStorage.setItem("products", JSON.stringify(products));
+  render();
+}
+
+function saveSales() {
+  const cash = document.getElementById("cash").value;
+
+  fetch(API_URL, {
+    method:"POST",
+    body: JSON.stringify({action:"sales", cash})
+  });
+
+  alert("บันทึกแล้ว");
+}
+
+render();
+</script>
+
 </body>
 </html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>POS PRO FIX</title>
+<style>
+body{font-family:sans-serif;background:#f5f5f5;margin:0}
+.top{background:#534AB7;color:#fff;padding:10px}
+.grid{display:grid;grid-template-columns:2fr 1fr;height:90vh}
+.left{padding:10px;overflow:auto}
+.right{background:#fff;padding:10px;border-left:1px solid #ddd}
+.card{background:#fff;padding:10px;margin:5px;border-radius:8px;cursor:pointer}
+.cart-item{display:flex;justify-content:space-between;margin:5px 0}
+button{padding:8px;border:none;border-radius:6px;background:#534AB7;color:#fff}
+</style>
+</head>
+
+<body>
+
+<div class="top">POS PRO</div>
+
+<div class="grid">
+<div class="left" id="products"></div>
+
+<div class="right">
+<h3>ตะกร้า</h3>
+<div id="cart"></div>
+<h3 id="total">0</h3>
+<button onclick="checkout()">ชำระเงิน</button>
+
+<hr>
+<h3>รายจ่าย</h3>
+<input id="exTitle" placeholder="ชื่อ"><br>
+<input id="exAmt" type="number"><br>
+<button onclick="addExpense()">เพิ่ม</button>
+
+<hr>
+<h3>Dashboard</h3>
+<div id="report"></div>
+</div>
+</div>
+
+<script>
+const API_URL="👉 ใส่ URL ตรงนี้";
+
+/* ===== STATE ===== */
+let products=[],orders=[],expenses=[],cart=[];
+
+/* ===== LOAD ===== */
+async function load(){
+  try{
+    const res=await fetch(API_URL);
+    const data=await res.json();
+
+    console.log("API:",data);
+
+    products=data.products||[];
+    orders=data.orders||[];
+    expenses=data.expenses||[];
+
+    renderProducts();
+    renderCart();
+    renderReport();
+
+  }catch(err){
+    console.error(err);
+    alert("เชื่อม Google Sheet ไม่ได้ ❌");
+  }
+}
+
+/* ===== PRODUCTS ===== */
+function renderProducts(){
+  const el=document.getElementById("products");
+  el.innerHTML="";
+
+  if(products.length===0){
+    el.innerHTML="⚠️ ไม่มีสินค้า (เช็ก Sheet)";
+    return;
+  }
+
+  products.forEach(p=>{
+    const d=document.createElement("div");
+    d.className="card";
+    d.innerHTML=`${p.icon||""} ${p.name} (${p.stock}) - ${p.price}`;
+    d.onclick=()=>add(p);
+    el.appendChild(d);
+  });
+}
+
+/* ===== CART ===== */
+function add(p){
+  const ex=cart.find(i=>i.id==p.id);
+  if(ex)ex.qty++; else cart.push({...p,qty:1});
+  renderCart();
+}
+
+function renderCart(){
+  const el=document.getElementById("cart");
+  el.innerHTML="";
+  let total=0;
+
+  cart.forEach(c=>{
+    total+=c.price*c.qty;
+    const d=document.createElement("div");
+    d.className="cart-item";
+    d.innerHTML=`${c.name} x${c.qty} <span>${c.price*c.qty}</span>`;
+    el.appendChild(d);
+  });
+
+  document.getElementById("total").innerText=total;
+}
+
+/* ===== CHECKOUT ===== */
+async function checkout(){
+  if(cart.length===0)return alert("ไม่มีสินค้า");
+
+  const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
+
+  try{
+    await fetch(API_URL,{
+      method:"POST",
+      body: JSON.stringify({
+        type:"order",
+        orderId:Date.now(),
+        items:cart.map(c=>c.name+" x"+c.qty).join(", "),
+        subtotal:total,
+        discount:0,
+        total:total,
+        payment:"cash",
+        rawItems:cart.map(c=>({id:c.id,qty:c.qty}))
+      })
+    });
+
+    alert("บันทึกสำเร็จ ✅");
+    cart=[];
+    load();
+
+  }catch(err){
+    alert("บันทึกไม่สำเร็จ ❌");
+  }
+}
+
+/* ===== EXPENSE ===== */
+async function addExpense(){
+  try{
+    await fetch(API_URL,{
+      method:"POST",
+      body: JSON.stringify({
+        type:"expense",
+        title:document.getElementById("exTitle").value,
+        amount:parseFloat(document.getElementById("exAmt").value)
+      })
+    });
+    load();
+  }catch(err){
+    alert("เพิ่มรายจ่ายไม่สำเร็จ");
+  }
+}
+
+/* ===== REPORT ===== */
+function renderReport(){
+  const sales=orders.reduce((s,o)=>s+o.grand,0);
+  const ex=expenses.reduce((s,e)=>s+e.amount,0);
+  const profit=sales-ex;
+
+  document.getElementById("report").innerHTML=
+    `ยอดขาย: ${sales}<br>รายจ่าย: ${ex}<br>กำไร: ${profit}`;
+}
+
+/* AUTO */
+setInterval(load,5000);
+load();
+</script>
+
+</body>
+</html>
